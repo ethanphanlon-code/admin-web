@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase';
 
 /**
  * POST /api/cron/[jobId]/run
@@ -10,7 +10,7 @@ export async function POST(
   { params }: { params: { jobId: string } }
 ) {
   try {
-    const supabase = await createServerSupabaseClient();
+    const supabase = await createSupabaseServerClient();
 
     // Verify admin access
     const {

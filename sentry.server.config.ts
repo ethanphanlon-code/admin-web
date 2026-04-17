@@ -1,45 +1,23 @@
 import * as Sentry from '@sentry/nextjs';
 
-const ENVIRONMENT = process.env.NODE_ENV || 'development';
-const RELEASE_VERSION = process.env.RELEASE_VERSION || 'unknown';
+Sentry.init({
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  environment: process.env.NODE_ENV || 'development',
 
-export function initSentryServer(): void {
-  Sentry.init({
-    dsn: process.env.SENTRY_DSN,
-    environment: ENVIRONMENT,
-    release: RELEASE_VERSION,
+  tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
 
-    integrations: [
-      new Sentry.Integrations.Console(),
-      new Sentry.Integrations.Http({ tracing: true }),
-      new Sentry.Integrations.OnUncaughtException(),
-      new Sentry.Integrations.OnUnhandledRejection(),
-    ],
+  debug: process.env.NODE_ENV === 'development',
 
-    tracesSampleRate: ENVIRONMENT === 'production' ? 0.1 : 1.0,
-
-    debug: ENVIRONMENT === 'development',
-    attachStacktrace: true,
-    maxBreadcrumbs: 100,
-
-    beforeSend(event, hint) {
-      if (event.request?.url?.includes('/health')) {
+  beforeSend(event, hint) {
+    if (event.request?.url?.includes('/health')) {
+      return null;
+    }
+    if (event.exception) {
+      const error = hint.originalException as any;
+      if (error?.statusCode === 503 || error?.code === 'ECONNREFUSED') {
         return null;
       }
-
-      if (event.exception) {
-        const error = hint.originalException as any;
-        if (error?.statusCode === 503 || error?.code === 'ECONNREFUSED') {
-          return null;
-        }
-      }
-
-      return event;
-    },
-
-    includeLocalVariables: true,
-    captureUnhandledRejections: true,
-  });
-}
-
-export default Sentry;
+    }
+    return event;
+  },
+});

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase';
 
 /**
  * GET /api/admin/audit-logs
@@ -7,7 +7,7 @@ import { createServerSupabaseClient } from '@/lib/supabase';
  */
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createServerSupabaseClient();
+    const supabase = await createSupabaseServerClient();
 
     // Verify admin access
     const {

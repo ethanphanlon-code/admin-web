@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase';
 
 /**
  * POST /api/admin/data-exports
@@ -7,7 +7,7 @@ import { createServerSupabaseClient } from '@/lib/supabase';
  */
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createServerSupabaseClient();
+    const supabase = await createSupabaseServerClient();
 
     // Verify admin access
     const {
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
  */
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createServerSupabaseClient();
+    const supabase = await createSupabaseServerClient();
 
     // Verify admin access
     const {
