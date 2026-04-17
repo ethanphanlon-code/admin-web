@@ -7,8 +7,9 @@ import { createSupabaseServerClient } from '@/lib/supabase';
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const supabase = await createSupabaseServerClient();
 
@@ -32,7 +33,7 @@ export async function POST(
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    const requestId = params.id;
+    const requestId = id;
     const body = await request.json().catch(() => ({}));
 
     // Update deletion request status

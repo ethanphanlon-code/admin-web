@@ -7,9 +7,10 @@ import { createSupabaseServerClient } from '@/lib/supabase';
  */
 export async function POST(
   request: NextRequest,
-  { params }: { params: { jobId: string } }
+  { params }: { params: Promise<{ jobId: string }> }
 ) {
   try {
+    const { jobId } = await params;
     const supabase = await createSupabaseServerClient();
 
     // Verify admin access
@@ -31,8 +32,6 @@ export async function POST(
     if (profile?.app_role !== 'admin') {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
-
-    const jobId = params.jobId;
 
     // Fetch the job
     const { data: job, error: jobError } = await supabase
