@@ -28,7 +28,7 @@ export default function SchemeForm({ regions, scheme }: { regions: any[]; scheme
         short_name: form.short_name || null,
         description: form.description,
         max_applicants: form.max_applicants ? parseInt(form.max_applicants.toString()) : null,
-        requirements: form.requirements.split('\n').filter(r => r.trim()),
+        requirements: form.requirements.split('\n').filter((r: string) => r.trim()),
         gotcha: form.gotcha || null,
         display_order: parseInt(form.display_order.toString()),
       };

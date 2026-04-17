@@ -56,7 +56,7 @@ export default function CodesList({ codes }: { codes: any[] }) {
         c.is_active ? 'yes' : 'no',
       ]),
     ];
-    const csv = rows.map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+    const csv = rows.map((r: any[]) => r.map((v: any) => `"${v}"`).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

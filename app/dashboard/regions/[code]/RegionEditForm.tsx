@@ -24,7 +24,7 @@ export default function RegionEditForm({ region }: { region: any }) {
       const supabase = createSupabaseBrowserClient();
       const { error } = await supabase.from('region_config').update({
         ...form,
-        factoids: form.factoids.split('\n').filter(f => f.trim()),
+        factoids: form.factoids.split('\n').filter((f: string) => f.trim()),
       }).eq('region_code', region.region_code);
       if (error) throw error;
       router.refresh();

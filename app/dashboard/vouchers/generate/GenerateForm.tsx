@@ -42,7 +42,7 @@ export default function GenerateForm({ rules, selectedRuleId }: { rules: any[]; 
       setResult({ ...d, codes: codes || [] });
       router.refresh();
     } catch (e: unknown) {
-      alert('Error: ' + e.message);
+      alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error'));
     } finally {
       setLoading(false);
     }
@@ -59,7 +59,7 @@ export default function GenerateForm({ rules, selectedRuleId }: { rules: any[]; 
         result.campaign,
       ]),
     ];
-    const csv = rows.map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+    const csv = rows.map((r: any[]) => r.map((v: any) => `"${v}"`).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

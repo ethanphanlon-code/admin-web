@@ -1,7 +1,6 @@
 'use client';
 
 import React, { Component, ReactNode } from 'react';
-import * as Sentry from '@sentry/nextjs';
 
 interface Props {
   children: ReactNode;
@@ -12,7 +11,6 @@ interface Props {
 interface State {
   hasError: boolean;
   error: Error | null;
-  eventId: string | null;
 }
 
 export class AdminErrorBoundary extends Component<Props, State> {
@@ -21,7 +19,6 @@ export class AdminErrorBoundary extends Component<Props, State> {
     this.state = {
       hasError: false,
       error: null,
-      eventId: null,
     };
   }
 
@@ -29,33 +26,15 @@ export class AdminErrorBoundary extends Component<Props, State> {
     return {
       hasError: true,
       error,
-      eventId: null,
     };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-    const eventId = Sentry.captureException(error, {
-      contexts: {
-        react: {
-          componentStack: errorInfo.componentStack,
-        },
-      },
-      level: 'error',
-      tags: {
-        type: 'error_boundary',
-        section: 'admin_dashboard',
-      },
-    });
-
-    this.setState({ eventId });
+    console.error('Error caught by boundary:', error);
+    console.error('Component stack:', errorInfo.componentStack);
 
     if (this.props.onError) {
       this.props.onError(error, errorInfo);
-    }
-
-    if (process.env.NODE_ENV === 'development') {
-      console.error('Error caught by boundary:', error);
-      console.error('Component stack:', errorInfo.componentStack);
     }
   }
 
@@ -63,7 +42,6 @@ export class AdminErrorBoundary extends Component<Props, State> {
     this.setState({
       hasError: false,
       error: null,
-      eventId: null,
     });
   };
 
@@ -85,10 +63,6 @@ export class AdminErrorBoundary extends Component<Props, State> {
               this.props.fallback
             ) : (
               <>
-                <div className="bg-gray-100 rounded p-3 mb-4 text-sm font-mono text-gray-700">
-                  Error ID: {this.state.eventId || 'unknown'}
-                </div>
-
                 {process.env.NODE_ENV === 'development' && (
                   <div className="bg-yellow-50 border border-yellow-200 rounded p-3 mb-4 text-sm">
                     <p className="font-semibold text-yellow-900 mb-2">

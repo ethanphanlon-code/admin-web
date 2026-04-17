@@ -23,14 +23,4 @@ const nextConfig = {
   },
 };
 
-// Only wrap with Sentry if the DSN is configured
-if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
-  const { withSentryConfig } = require('@sentry/nextjs');
-  module.exports = withSentryConfig(nextConfig, {
-    silent: true,
-    org: process.env.SENTRY_ORG,
-    project: process.env.SENTRY_PROJECT,
-  });
-} else {
-  module.exports = nextConfig;
-}
+module.exports = nextConfig;
