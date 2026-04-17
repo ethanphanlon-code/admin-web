@@ -38,7 +38,7 @@ export default function AuditLogPage() {
 
       setLogs(response.data);
       setTotal(response.total);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to fetch audit logs:', error);
     } finally {
       setLoading(false);

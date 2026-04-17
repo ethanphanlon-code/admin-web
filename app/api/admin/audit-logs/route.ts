@@ -73,7 +73,7 @@ export async function GET(request: NextRequest) {
       limit,
       offset,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Audit logs error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

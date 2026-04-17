@@ -24,7 +24,7 @@ export default function CronJobsPage() {
       if (data && data.length > 0) {
         setJobs(data);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to fetch cron jobs:', error);
     } finally {
       setLoading(false);
@@ -41,7 +41,7 @@ export default function CronJobsPage() {
       if (response.ok) {
         await fetchJobs();
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to run job:', error);
     } finally {
       setRunning(null);
@@ -52,7 +52,7 @@ export default function CronJobsPage() {
     try {
       await repository.toggleJob(jobId, !enabled);
       await fetchJobs();
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to toggle job:', error);
     }
   };

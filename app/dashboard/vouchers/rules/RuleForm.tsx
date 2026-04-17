@@ -71,7 +71,7 @@ export default function RuleForm({ rule }: { rule?: any }) {
         : await supabase.from('voucher_rules').insert(payload);
       if (error) throw error;
       router.push('/dashboard/vouchers/rules');
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(false); }
   };
 

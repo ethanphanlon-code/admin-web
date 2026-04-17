@@ -19,7 +19,7 @@ export default function SettingsForm({ settings }: { settings: any[] }) {
       }).eq('key', key);
       if (error) throw error;
       router.refresh();
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setSaving(''); }
   };
 

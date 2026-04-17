@@ -29,7 +29,7 @@ export default function RegionEditForm({ region }: { region: any }) {
       if (error) throw error;
       router.refresh();
       alert('Saved');
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(false); }
   };
 

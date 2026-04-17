@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Placeholder response - integrate with Sentry API for real data
-    const errors = [];
+    const errors: unknown[] = [];
 
     return NextResponse.json({
       errors,
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
       errorRate: 0,
       uptime: 99.9,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Monitoring error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

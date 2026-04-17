@@ -19,7 +19,7 @@ export default function DbPerformancePage() {
         const data = await response.json();
         setStats(data);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to fetch DB stats:', error);
     } finally {
       setLoading(false);

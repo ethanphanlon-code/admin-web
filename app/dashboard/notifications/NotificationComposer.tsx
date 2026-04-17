@@ -30,7 +30,7 @@ export default function NotificationComposer() {
       alert(`Sent to ${data.count} users`);
       setTitle(''); setBody('');
       router.refresh();
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(false); }
   };
 

@@ -41,7 +41,7 @@ export default function GenerateForm({ rules, selectedRuleId }: { rules: any[]; 
 
       setResult({ ...d, codes: codes || [] });
       router.refresh();
-    } catch (e: any) {
+    } catch (e: unknown) {
       alert('Error: ' + e.message);
     } finally {
       setLoading(false);

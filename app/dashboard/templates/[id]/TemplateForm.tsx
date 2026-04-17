@@ -25,7 +25,7 @@ export default function TemplateForm({ template }: { template: any }) {
       }).eq('id', template.id);
       if (error) throw error;
       router.push('/dashboard/templates');
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(false); }
   };
 

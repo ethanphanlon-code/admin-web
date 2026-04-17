@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ success: true, export: exportRecord }, { status: 201 });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Data export error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -81,7 +81,7 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json({ exports: data });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('List data exports error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

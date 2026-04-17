@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
     };
 
     return NextResponse.json(stats);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('DB performance error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

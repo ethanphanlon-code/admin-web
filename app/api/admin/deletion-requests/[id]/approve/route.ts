@@ -53,7 +53,7 @@ export async function POST(
       success: true,
       message: 'Deletion request approved',
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Approve deletion error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

@@ -33,7 +33,7 @@ export default function DataExportsPage() {
         setShowForm(false);
         setSelectedResources([]);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to request export:', error);
     }
   };

@@ -19,7 +19,7 @@ export default function GroupActions({ groupId, currentStatus, isPaid }: {
       const { error } = await supabase.from('groups').update({ status }).eq('id', groupId);
       if (error) throw error;
       router.refresh();
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(''); }
   };
 
@@ -31,7 +31,7 @@ export default function GroupActions({ groupId, currentStatus, isPaid }: {
       const { error } = await supabase.from('groups').update({ is_paid: !isPaid }).eq('id', groupId);
       if (error) throw error;
       router.refresh();
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(''); }
   };
 
@@ -43,7 +43,7 @@ export default function GroupActions({ groupId, currentStatus, isPaid }: {
       const res = await fetch('/api/groups/' + groupId, { method: 'DELETE' });
       if (!res.ok) throw new Error((await res.json()).error || 'Delete failed');
       router.push('/dashboard/groups');
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(''); }
   };
 

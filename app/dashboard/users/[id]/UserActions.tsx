@@ -23,7 +23,7 @@ export default function UserActions({ userId, currentRole, callerRole }: {
       if (error) throw error;
       router.refresh();
       alert('Role updated.');
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(''); }
   };
 
@@ -38,7 +38,7 @@ export default function UserActions({ userId, currentRole, callerRole }: {
       if (error) throw error;
       router.refresh();
       alert('Progress set: ' + ((data as any)?.description || 'success'));
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(''); }
   };
 
@@ -54,7 +54,7 @@ export default function UserActions({ userId, currentRole, callerRole }: {
       }
       alert('User deleted.');
       router.push('/dashboard/users');
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(''); }
   };
 

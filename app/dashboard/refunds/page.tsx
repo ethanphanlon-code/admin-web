@@ -45,7 +45,7 @@ export default function RefundsPage() {
           )
         );
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to approve refund:', error);
     }
   };

@@ -23,7 +23,7 @@ export default function PricingEditor({ region }: { region: any }) {
       if (error) throw error;
       router.refresh();
       alert('Pricing saved for ' + region.region_name);
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(false); }
   };
 

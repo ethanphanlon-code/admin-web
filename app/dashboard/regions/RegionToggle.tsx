@@ -16,7 +16,7 @@ export default function RegionToggle({ code, field, initial }: { code: string; f
       if (error) throw error;
       setVal(!val);
       router.refresh();
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(false); }
   };
 

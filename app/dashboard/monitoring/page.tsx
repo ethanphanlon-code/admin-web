@@ -19,7 +19,7 @@ export default function MonitoringPage() {
         const data = await response.json();
         setErrorTrends(data.errors || []);
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to fetch monitoring data:', error);
     } finally {
       setLoading(false);

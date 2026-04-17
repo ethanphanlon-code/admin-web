@@ -45,7 +45,7 @@ export default function DeletionRequestsPage() {
           )
         );
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to approve request:', error);
     }
   };
@@ -63,7 +63,7 @@ export default function DeletionRequestsPage() {
           )
         );
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Failed to reject request:', error);
     }
   };

@@ -33,7 +33,7 @@ export default function LoginPage() {
 
       router.push('/dashboard');
       router.refresh();
-    } catch (e: any) {
+    } catch (e: unknown) {
       setError(e.message);
     } finally {
       setLoading(false);

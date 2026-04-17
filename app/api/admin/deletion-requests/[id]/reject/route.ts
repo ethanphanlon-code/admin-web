@@ -34,7 +34,7 @@ export async function POST(
     }
 
     const requestId = id;
-    const body = await request.json().catch(() => ({}));
+    const body = await request.json().catch((): Record<string, unknown> => ({}));
 
     // Update deletion request status
     const { error } = await supabase
@@ -55,7 +55,7 @@ export async function POST(
       success: true,
       message: 'Deletion request rejected',
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Reject deletion error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

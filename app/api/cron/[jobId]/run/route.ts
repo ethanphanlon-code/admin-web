@@ -86,7 +86,7 @@ export async function POST(
       message: `Job ${jobId} executed successfully`,
       duration,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Cron job error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },

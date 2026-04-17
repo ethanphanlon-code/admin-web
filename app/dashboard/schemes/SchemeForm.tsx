@@ -37,7 +37,7 @@ export default function SchemeForm({ regions, scheme }: { regions: any[]; scheme
         : await supabase.from('region_schemes').insert(payload);
       if (error) throw error;
       router.push('/dashboard/schemes');
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
     finally { setLoading(false); }
   };
 

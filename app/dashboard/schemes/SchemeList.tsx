@@ -13,7 +13,7 @@ export default function SchemeList({ schemes }: { schemes: any[] }) {
       const { error } = await supabase.from('region_schemes').delete().eq('id', id);
       if (error) throw error;
       router.refresh();
-    } catch (e: any) { alert('Error: ' + e.message); }
+    } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : 'Unknown error')); }
   };
 
   return (

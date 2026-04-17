@@ -53,7 +53,7 @@ export async function POST(
       success: true,
       message: 'Refund approved and will be processed',
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Approve refund error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
